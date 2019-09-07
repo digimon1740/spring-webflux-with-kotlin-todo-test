@@ -6,10 +6,10 @@ import java.time.LocalDateTime
 
 @Table("todos")
 data class Todo(
-        @Id
-        var id: Long? = null,
-        var content: String? = null,
-        var done: Boolean = false,
-        var createdAt: LocalDateTime = LocalDateTime.now(),
-        var modifiedAt: LocalDateTime = createdAt
+    @Id
+    var id: Long? = null,
+    var content: String? = null,
+    var done: Boolean = false,
+    var createdAt: LocalDateTime = LocalDateTime.now(),
+    var modifiedAt: LocalDateTime = createdAt
 )
