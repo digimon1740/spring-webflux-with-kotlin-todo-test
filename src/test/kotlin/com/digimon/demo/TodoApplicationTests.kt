@@ -28,6 +28,8 @@ class TodoApplicationTests {
 
     lateinit var todo: Todo
 
+    val todo2: Todo by lazy { Todo(id = 2L, content = "Get rid of security flaws in my app") }
+
     @Before
     fun setUp() {
         todo = Todo(id = 1L, content = "I have to finish my work by tomorrow")
@@ -36,13 +38,17 @@ class TodoApplicationTests {
     @Test
     @Throws(Exception::class)
     fun `test should return a list of todo`() {
-        given(repo.findAll()).willReturn(Flux.just(todo))
+        given(repo.findAll()).willReturn(Flux.just(todo, todo2))
 
-        webClient.get().uri("/todos").accept(MediaType.APPLICATION_JSON)
+        val responseBody: List<Todo>? = webClient.get().uri("/todos").accept(MediaType.APPLICATION_JSON)
             .exchange()
             .expectStatus().isOk
             .expectBodyList(Todo::class.java)
-            .hasSize(1)
+            .hasSize(2)
+            .returnResult().responseBody
+
+        assertThat(responseBody?.get(1)?.id).isEqualTo(2L)
+        assertThat(responseBody?.get(1)?.content).isEqualTo("Get rid of security flaws in my app")
     }
 
     @Test
