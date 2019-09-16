@@ -32,7 +32,7 @@ class TodoApplicationTests {
 
     @Before
     fun setUp() {
-        todo1 = Todo(id = 1L, content = "I have to finish my work by tomorrow")
+        todo1 = Todo(id = 1L, content = "I have to finish this work by tomorrow")
         todo2 = Todo(id = 2L, content = "Get rid of security flaws in my app")
 
         val routerFunction = TodoRouter(TodoHandler(repo)).routerFunction()
@@ -66,7 +66,7 @@ class TodoApplicationTests {
             .expectBody(Todo::class.java)
             .returnResult().responseBody
 
-        assertThat(responseBody?.content).isEqualTo("I have to finish my work by tomorrow")
+        assertThat(responseBody?.content).isEqualTo("I have to finish this work by tomorrow")
     }
 
 }
