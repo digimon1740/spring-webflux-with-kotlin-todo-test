@@ -57,7 +57,7 @@ class TodoApplicationTests {
 
     @Test
     @Throws(Exception::class)
-    fun `test should return a todo by id`() {
+    fun `test should return an item of todo by id`() {
         given(repo.findById(1L)).willReturn(Mono.just(todo1))
 
         val responseBody: Todo? = webClient.get().uri("/todos/{id}", 1L).accept(MediaType.APPLICATION_JSON)
